@@ -78,5 +78,12 @@ public class SysUserController {
             return Result.fail();
         }
     }
+    @ApiOperation("更改用户状态")
+    @GetMapping("updateStatus/{id}/{status}")
+    public Result updateStatus(@PathVariable String id,
+                               @PathVariable Integer status){
+        sysUserService.updateStatus(id,status);
+        return Result.ok();
+    }
 }
 
