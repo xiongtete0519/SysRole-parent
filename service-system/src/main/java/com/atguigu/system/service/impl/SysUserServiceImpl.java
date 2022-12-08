@@ -4,6 +4,7 @@ import com.atguigu.model.system.SysUser;
 import com.atguigu.model.vo.SysUserQueryVo;
 import com.atguigu.system.mapper.SysUserMapper;
 import com.atguigu.system.service.SysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -35,5 +36,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setStatus(status);
         //调用方法修改
         baseMapper.updateById(sysUser);
+    }
+
+    //根据用户名称查询数据库
+    @Override
+    public SysUser getUserInfoByUserName(String username) {
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.eq("username",username);
+        SysUser sysUser = baseMapper.selectOne(wrapper);
+        return sysUser;
     }
 }

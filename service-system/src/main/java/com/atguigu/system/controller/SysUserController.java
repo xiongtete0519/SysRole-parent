@@ -2,6 +2,7 @@ package com.atguigu.system.controller;
 
 
 import com.atguigu.common.result.Result;
+import com.atguigu.common.utils.MD5;
 import com.atguigu.model.system.SysUser;
 import com.atguigu.model.vo.SysUserQueryVo;
 import com.atguigu.system.service.SysUserService;
@@ -43,6 +44,9 @@ public class SysUserController {
     @ApiOperation("添加用户")
     @PostMapping("save")
     public Result save(@RequestBody SysUser user){
+        //把输入的密码进行MD5加密
+        String encrypt = MD5.encrypt(user.getPassword());
+        user.setPassword(encrypt);
         boolean isSuccess = sysUserService.save(user);
         if(isSuccess){
             return Result.ok();

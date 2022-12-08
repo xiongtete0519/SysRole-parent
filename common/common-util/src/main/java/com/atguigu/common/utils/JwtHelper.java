@@ -20,7 +20,7 @@ public class JwtHelper {
      * @param username 用户名称
      * @return 根据用户id和用户名称生成token字符串
      */
-    public static String createToken(Long userId, String username) {
+    public static String createToken(String userId, String username) {
         String token = Jwts.builder()
                 .setSubject("AUTH-USER")    //subject
                 .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration))//过期时间
@@ -32,14 +32,14 @@ public class JwtHelper {
         return token;
     }
 
-    public static Long getUserId(String token) {
+    public static String getUserId(String token) {
         try {
             if (StringUtils.isEmpty(token)) return null;
 
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token);
             Claims claims = claimsJws.getBody();
-            Integer userId = (Integer) claims.get("userId");
-            return userId.longValue();
+            String userId = (String) claims.get("userId");
+            return userId;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -61,9 +61,9 @@ public class JwtHelper {
 
 
     public static void main(String[] args) {
-        String token = JwtHelper.createToken(1L, "codeleader");
+        String token = JwtHelper.createToken("1", "codeleader");
         System.out.println(token);
-        Long userId = JwtHelper.getUserId(token);
+        String userId = JwtHelper.getUserId(token);
         String username = JwtHelper.getUsername(token);
         System.out.println(userId);
         System.out.println(username);
