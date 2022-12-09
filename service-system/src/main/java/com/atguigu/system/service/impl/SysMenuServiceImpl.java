@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -127,7 +128,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     //根据用户id查询按钮权限值
     @Override
-    public List<String> getUserButtonList(String id) {
-        return null;
+    public List<String> getUserButtonList(String userId) {
+        List<SysMenu> sysMenuList=null;
+        //判断是否是管理员
+        if(userId.equals("1")){
+            sysMenuList = baseMapper.selectList(new QueryWrapper<SysMenu>().eq("status", 1));
+        }else{
+            sysMenuList=baseMapper.findMenuListUserId(userId);
+        }
+        //sysMenuList遍历
+        List<String> permissionList=new ArrayList<>();
+        for (SysMenu sysMenu : sysMenuList) {
+            //type=2
+            if(sysMenu.getType()==2){
+                String perms = sysMenu.getPerms();
+                permissionList.add(perms);
+            }
+        }
+        return permissionList;
     }
 }
