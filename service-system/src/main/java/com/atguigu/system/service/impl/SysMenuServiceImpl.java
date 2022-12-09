@@ -1,8 +1,10 @@
 package com.atguigu.system.service.impl;
 
+import com.atguigu.common.utils.RouterHelper;
 import com.atguigu.model.system.SysMenu;
 import com.atguigu.model.system.SysRoleMenu;
 import com.atguigu.model.vo.AssginMenuVo;
+import com.atguigu.model.vo.RouterVo;
 import com.atguigu.system.exception.GuiguException;
 import com.atguigu.system.mapper.SysMenuMapper;
 import com.atguigu.system.mapper.SysRoleMenuMapper;
@@ -99,5 +101,33 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             sysRoleMenu.setRoleId(assginMenuVo.getRoleId());
             sysRoleMenuMapper.insert(sysRoleMenu);
         }
+    }
+
+    //根据用户id查询菜单权限值
+    @Override
+    public List<RouterVo> getUserMenuList(String userId) {
+        //admin是超级管理员，操作所有内容
+        List<SysMenu> sysMenuList=null;
+        //判断userid值是1代表超级管理员，查询所有权限数据
+        if(userId.equals("1")){
+            QueryWrapper<SysMenu> wrapper = new QueryWrapper<>();
+            wrapper.eq("status",1);
+            wrapper.orderByAsc("sort_value");
+            sysMenuList = baseMapper.selectList(wrapper);
+        }else{ //如果userid不是1，其他类型用户，查询这个用户权限
+            sysMenuList = baseMapper.findMenuListUserId(userId);
+        }
+
+        //构建树形结构
+        List<SysMenu> sysMenuTreeList = MenuHelper.buildTree(sysMenuList);
+        //转换成前端路由要求格式的数据
+        List<RouterVo> routerVoList = RouterHelper.buildRouters(sysMenuTreeList);
+        return routerVoList;
+    }
+
+    //根据用户id查询按钮权限值
+    @Override
+    public List<String> getUserButtonList(String id) {
+        return null;
     }
 }

@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,13 +51,17 @@ public class IndexController {
     }
 
     //info
+    //登录之后获取用户信息
     @GetMapping("info")
-    public Result info(){
-        Map<String, Object> map = new HashMap<>();
-        map.put("roles","[admin]");
-        map.put("introduction","I am s super administrator");
-        map.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-        map.put("name","Super Admin atguigu");
+    public Result info(HttpServletRequest request){
+        //获取请求头中的token字符串
+        String token = request.getHeader("token");
+        //从token字符串获取用户名称(id)
+        String username = JwtHelper.getUsername(token);
+        //根据用户名称获取用户信息(基本信息、菜单权限、按钮权限数据)
+        Map<String, Object> map=sysUserService.getUserInfo(username);
+
+
         return Result.ok(map);
     }
 }

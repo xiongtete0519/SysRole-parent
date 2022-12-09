@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.Map;
+
 /**
  * <p>
  * 用户表 服务类
@@ -24,4 +26,7 @@ public interface SysUserService extends IService<SysUser> {
 
     //根据用户名称查询数据库
     SysUser getUserInfoByUserName(String username);
+
+    //根据用户名称获取用户信息(基本信息、菜单权限、按钮权限数据)
+    Map<String, Object> getUserInfo(String username);
 }
