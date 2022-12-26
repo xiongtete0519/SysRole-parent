@@ -41,10 +41,10 @@ public class LoginLogServiceImpl implements LoginLogService {
             wrapper.like("username",username);
         }
         if(!StringUtils.isEmpty(createTimeBegin)){
-            wrapper.ge("crate_time",createTimeBegin);
+            wrapper.ge("create_time",createTimeBegin);
         }
         if(!StringUtils.isEmpty(createTimeEnd)){
-            wrapper.le("crate_time",createTimeEnd);
+            wrapper.le("create_time",createTimeEnd);
         }
         //调用mapper方法
         IPage<SysLoginLog> pageModel= loginLogMapper.selectPage(pageParam, wrapper);

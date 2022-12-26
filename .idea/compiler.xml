@@ -10,8 +10,8 @@
         <module name="common-util" />
         <module name="common-log" />
         <module name="model" />
-        <module name="service-system" />
         <module name="spring-security" />
+        <module name="service-system" />
         <module name="service-util" />
       </profile>
     </annotationProcessing>
