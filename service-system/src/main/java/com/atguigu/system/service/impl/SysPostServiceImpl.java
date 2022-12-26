@@ -37,7 +37,7 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> impl
             wrapper.like(SysPost::getPostCode,postCode);
         }
         if(!StringUtils.isEmpty(status)){
-            wrapper.like(SysPost::getStatus,status);
+            wrapper.eq(SysPost::getStatus,status);
         }
         wrapper.orderByDesc(SysPost::getId);
         Page<SysPost> sysPostPage = baseMapper.selectPage(pageParam, wrapper);
