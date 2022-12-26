@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "SysOperLog管理", tags = "SysOperLog管理")
+@Api(value = "SysOperLog管理", tags = "操作日志管理")
 @RestController
 @RequestMapping(value="/admin/system/sysOperLog")
 @SuppressWarnings({"unchecked", "rawtypes"})
@@ -35,4 +35,6 @@ public class SysOperLogController {
        IPage<SysOperLog> pageModel=operLogService.selectPage(page,limit,sysOperLogQueryVo);
        return Result.ok(pageModel);
     }
+
+
 }

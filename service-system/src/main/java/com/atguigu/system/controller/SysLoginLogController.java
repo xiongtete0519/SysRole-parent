@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "SysLoginLog管理", tags = "SysLoginLog管理")
+@Api(value = "SysLoginLog管理", tags = "登录日志管理")
 @RestController
 @RequestMapping(value="/admin/system/sysLoginLog")
 @SuppressWarnings({"unchecked", "rawtypes"})
