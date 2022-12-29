@@ -1,8 +1,11 @@
 package com.atguigu.system.service;
 
 
+import cn.hutool.core.lang.tree.Tree;
 import com.atguigu.model.system.SysDept;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysDeptService extends IService<SysDept> {
 
+    //获取部门
+    List<Tree<String>> findNodes();
 }
