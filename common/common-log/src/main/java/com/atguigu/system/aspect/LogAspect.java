@@ -6,7 +6,6 @@ import com.atguigu.common.utils.JwtHelper;
 import com.atguigu.model.system.SysOperLog;
 import com.atguigu.system.annotation.Log;
 import com.atguigu.system.service.OperLogService;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -23,7 +22,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
